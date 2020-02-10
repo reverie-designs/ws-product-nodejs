@@ -1,12 +1,16 @@
 const express = require('express')
 const pg = require('pg')
-
 const app = express()
+const {config} = require('dotenv')
+const cors = require('cors')
+config()
+app.use(cors())
 // configs come from standard PostgreSQL env vars
 // https://www.postgresql.org/docs/9.6/static/libpq-envars.html
 const pool = new pg.Pool()
 
 const queryHandler = (req, res, next) => {
+  console.log("looking for params",req.query  )
   pool.query(req.sqlQuery).then((r) => {
     return res.json(r.rows || [])
   }).catch(next)
