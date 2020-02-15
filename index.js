@@ -10,7 +10,8 @@ app.use(cors())
 const pool = new pg.Pool()
 
 const queryHandler = (req, res, next) => {
-  console.log("looking for params",req.query  )
+  // console.log("looking for params",req.query  )
+   console.log("IS THERE IP IN HEADER", req.query)
   pool.query(req.sqlQuery).then((r) => {
     return res.json(r.rows || [])
   }).catch(next)
